@@ -13,7 +13,7 @@ Using the repository:
 1. Open your (git bash) terminal
 
 2. Go to a directory you set as the dedicated MTE 204 directory. You can do that using "cd":
-    <script>$ cd <path to directory></script>
+<script>$ cd <path to directory></script>
 
 3. There, you want to clone this repository. To clone this repository, run this command in the shell:
     git clone git@github.com:lee12jin/MTE204_1b.git
