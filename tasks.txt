@@ -1,0 +1,39 @@
+FUNCTIONS
+
+1. Naveen
+2. Jin
+work through questions by hand
+
+1. Everyone
+do report
+
+1. Arvind
+2. Genie
+function: manual inverse
+
+1. Daniel
+2. Genie & Jin
+task: [M], [c], and [k] set up in Matlab for Qs1
+task: [M], [c], and [k] set up in Matlab for Qs2
+
+1. Genie
+Explicit Dynamic Formation
+ - [u.]
+ - [u..]
+ - [A]
+ - [B]
+ - [D]
+ - [u]i+1
+
+1. Jin
+Implicit Dynamic Formation
+ - [u.]i+1
+ - [u..]i+1
+ - [A~]
+ - [B~]
+ - [C~]
+ - [D~]
+ - [u]i+1
+
+
+   
