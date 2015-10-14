@@ -35,7 +35,7 @@ To pull, just run this command inside the project folder:
 
 
 How to push:
-ALWAYS PULL BEFORE PUSHING. Somebody else's updates may tamper with your newest code.
+<strong>ALWAYS PULL BEFORE PUSHING</strong>. Somebody else's updates may tamper with your newest code.
 It's difficult on the team if you push code that doesn't work with somebody else's code. Everybody gets affected by this.
 
     git pull
