@@ -13,14 +13,14 @@ Using the repository:
 1. Open your (git bash) terminal
 
 2. Go to a directory you set as the dedicated MTE 204 directory. You can do that using "cd":
-''' html
-$ cd <path to directory>
-'''
+
+    $ cd <path to directory>
+
 
 3. There, you want to clone this repository. To clone this repository, run this command in the shell:
-''' html
-git clone git@github.com:lee12jin/MTE204_1b.git
-'''
+
+    git clone git@github.com:lee12jin/MTE204_1b.git
+
 
 4. You will notice that you now have all the components of the repository inside a project folder... You can work with it and change the matlab code
 
@@ -30,20 +30,20 @@ pushing is a way to send your updates to github, where our code is being hosted.
 
 How to pull:
 To pull, just run this command inside the project folder:
-''' html
-git pull
-'''
+
+    git pull
+
 
 How to push:
 ALWAYS PULL BEFORE PUSHING. Somebody else's updates may tamper with your newest code.
 It's difficult on the team if you push code that doesn't work with somebody else's code. Everybody gets affected by this.
-''' html
-git pull
-'''
+
+    git pull
+
 Verify that everything is fine, then...
-''' html
-git push
-'''
+
+    git push
+
 
 ![Alt text][id]
 [id]: http://octodex.github.com/images/dojocat.jpg  "The Dojocat"
