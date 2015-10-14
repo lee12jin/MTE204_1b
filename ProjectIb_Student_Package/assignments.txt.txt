@@ -1,7 +1,7 @@
 How we're splitting up the functions:
 
 Arvind
-Daniel
+Daniel Lo
 Genie
 Jin
 Naveen
