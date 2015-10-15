@@ -39,22 +39,7 @@ You want to save your changes in your local git first by running this command..
 
     git add <filename>
 
-Conversely if you want to add everything you changed, just do..
-    
-    git add -A
-
-Now you want to commit everything you've added as the changes to github..
-The following command stores all your changes you've added and adds it to 
-your local git history with a message. Try to keep this message descriptive
-enough for you to remember the changes that went along with everything.
-
-    git commit -m <message>
-
-I usually put the message within double quotations like so...
-
-    git commit -m "Added so-and-so function to project."
-
-Now that you've commited, you are able to push..
+Conversely if you want to add everything you changed, just do...
 
 <strong>ALWAYS PULL BEFORE PUSHING</strong>. Somebody else's updates may tamper with your newest code.
 It's difficult on the team if you push code that doesn't work with somebody else's code. Everybody gets affected by this.
