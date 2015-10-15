@@ -24,10 +24,10 @@ dof = 1;
 m = [0;
      10;];
 
-% Damper value for each node pair (N/s)
+% Damper value for each element (N/s)
 c = [1];
 
-% Spring constant for each node pair (N/m)
+% Spring constant for each element (N/m)
 k = [10];
 
 % External force applied at each node (N)
