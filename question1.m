@@ -1,6 +1,9 @@
 clear all;
 clc;
 
+% Placeholder for variable
+unknown = 111111111;
+
 % Scatter matrix
 sctr = [1, 2];
 
@@ -41,3 +44,5 @@ size = dof * n;
 M = zeros(size);
 C = zeros(size);
 K = zeros(size);
+
+
