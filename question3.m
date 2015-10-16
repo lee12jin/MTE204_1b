@@ -37,3 +37,11 @@ end
 m = find_node_mass( n, sctr, rho, A, lengths );
 
 [M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
+
+% The increment for the frequencies (rad/ms)
+delta_omega = 0.1;
+
+% Frequencies (rad/ms)
+omega = [0.1;
+         1;
+         10;];
