@@ -36,3 +36,4 @@ end
 % Mass of each node
 m = find_node_mass( n, sctr, rho, A, lengths );
 
+[M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
