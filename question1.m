@@ -45,4 +45,28 @@ M = zeros(size);
 C = zeros(size);
 K = zeros(size);
 
+% Create the local C and K matrices
+[l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );
 
+% Part b
+time_step1 = 0.01;
+time_step2 = 0.1;
+time_step3 = 1;
+gamma = 3 / 2;
+beta = 8 / 5;
+
+% Apply implicit dynamic formulation
+[ A_t, B_t, C_t, D_t ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step1 );
+
+% Create time vectors
+t1 = linspace(0, 5, 5/time_step1);
+t2 = linspace(0, 5, 5/time_step2);
+t3 = linspace(0, 5, 5/time_step3);
+
+% Place all the diagrams within one plot
+hold all;
+% Plot each diagram based on time
+% plot(t1, y1);
+% plot(t2, y2);
+% plot(t3, y3);
+xlabel('Time (seconds)'); ylabel('Dunno asdflkjdsalfjl;');

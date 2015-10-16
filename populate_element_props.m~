@@ -1,0 +1,42 @@
+function [ l_C, l_K ] = populate_physical_props( sctr, coords, m, c, k, dof )
+%POPULATE_PHYSICAL_PROPS Summary of this function goes here
+%   Detailed explanation goes here
+
+    % Number of elements
+    n = size(coords, 1);
+    % Number of elements
+    e = size(sctr, 1);
+
+    sz = n * dof;
+    
+    % Angle of element with respect to global system
+    theta = zeros(e, 1);
+    
+    % Size of the local matrices
+    l_sz = n * dof;
+    % Local c matrix for each element
+    l_C = zeros(l_sz, l_sz, e);
+    % Local k matrix for each element
+    l_K = zeros(l_sz, l_sz, e);
+    
+    
+    for element = 1:e
+        % Get the nodes of the element
+        node1 = sctr(element, 1);
+        node2 = sctr(element, 2);
+        
+        % Get the coordinates of each node
+        x1 = coords(node1, 1);
+        y1 = coords(node1, 2);
+        x2 = coords(node2, 1);
+        y2 = coords(node2, 2);
+        
+        % For the 1D case, all the forces are along the global reference
+        if dof > 2:
+            theta(element, 1) = calc_angle(x1, y1, x2, y2);
+        end
+        
+        
+        
+end
+
