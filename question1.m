@@ -48,6 +48,8 @@ K = zeros(size);
 % Create the local C and K matrices
 [l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );
 
+[M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
+
 % Part b
 time_step1 = 0.01;
 time_step2 = 0.1;
