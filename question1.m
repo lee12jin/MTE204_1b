@@ -31,7 +31,7 @@ c = [1];
 k = [10];
 
 % External force applied at each node (N)
-f = [0;
+f = [unknown;
      10;];
  
 % Initial velocity
