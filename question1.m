@@ -69,9 +69,9 @@ beta = 8 / 5;
 [ A_t1, B_t1, C_t1, D_t1 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step1 );
 [ A_t2, B_t2, C_t2, D_t2 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step2 );
 [ A_t3, B_t3, C_t3, D_t3 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step3 );
-[u1, v1, a1] = apply_implicit_dynamic_formulation(A_t1, B_t1, C_t1, D_t1, u0, v0, a0, f0, beta, gamma, t, time_step1);
-[u2, v2, a2] = apply_implicit_dynamic_formulation(A_t2, B_t2, C_t2, D_t2, u0, v0, a0, f0, beta, gamma, t, time_step2);
-[u3, v3, a3] = apply_implicit_dynamic_formulation(A_t3, B_t3, C_t3, D_t3, u0, v0, a0, f0, beta, gamma, t, time_step3);
+[u1, v1, a1] = apply_implicit_dynamic_formulation(A_t1, B_t1, C_t1, D_t1, u0, v0, a0, f0, beta, gamma, t, time_step1, unknown);
+[u2, v2, a2] = apply_implicit_dynamic_formulation(A_t2, B_t2, C_t2, D_t2, u0, v0, a0, f0, beta, gamma, t, time_step2, unknown);
+[u3, v3, a3] = apply_implicit_dynamic_formulation(A_t3, B_t3, C_t3, D_t3, u0, v0, a0, f0, beta, gamma, t, time_step3, unknown);
 
 % Place all the diagrams within one plot
 hold all;
