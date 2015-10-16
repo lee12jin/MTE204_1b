@@ -1,4 +1,4 @@
-function [ m ] = find_node_mass( sctr, rhos, areas, lengths )
+function [ m ] = find_node_mass( n, sctr, rhos, areas, lengths )
 % Calculates the mass of each node given the properties of the elements
 % Returns a vector with the mass of each node
 
@@ -6,7 +6,7 @@ function [ m ] = find_node_mass( sctr, rhos, areas, lengths )
     e = size(sctr, 1);
     
     % Initialize a mass vector to 0
-    m = zeros(e+1, 1);
+    m = zeros(n, 1);
     
     for i = 1:e
         % Mass of the element: density * area * length

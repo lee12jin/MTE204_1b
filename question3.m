@@ -8,7 +8,11 @@ dof = 2;
 
 [ sctr, coords, E, A, rho, c ] = read_input();
 
+% Number of elements
 e = size(sctr, 1);
+
+% Number of nodes
+n = size(coords, 1);
 
 % Length of each element
 lengths = ones(e, 1);
@@ -28,4 +32,7 @@ for element = 1:e
 end
 
 [ l_C, l_K ] = populate_element_props( sctr, coords, c, k, dof );
+
+% Mass of each node
+m = find_node_mass( n, sctr, rho, A, lengths );
 

@@ -49,7 +49,7 @@ areas = A * ones(e, 1);
 [l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );
 
 % Calculate the mass for each node
-m = find_node_mass( sctr, rhos, areas, lengths );
+m = find_node_mass( n, sctr, rhos, areas, lengths );
 
 [M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
 
