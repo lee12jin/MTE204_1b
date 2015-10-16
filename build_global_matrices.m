@@ -27,7 +27,7 @@ function [ M, C, K ] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof )
     end
     
     node = 1;
-    for i = 1:n
+    for i = 1:global_size
         % Update the diagonals for the global mass matrix
         M(i, i) = m(node, 1);
         
