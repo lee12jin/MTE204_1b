@@ -3,21 +3,17 @@ function [ l_C, l_K ] = populate_element_props( sctr, coords, c, k, dof )
 %   Detailed explanation goes here
 
     % Number of elements
-    n = size(coords, 1);
-    % Number of elements
     e = size(sctr, 1);
-
-    sz = n * dof;
     
     % Angle of element with respect to global system
     theta = zeros(e, 1);
     
     % Size of the local matrices
-    l_sz = 2 * dof;
+    local_size = 2 * dof;
     % Local c matrix for each element
-    l_C = zeros(l_sz, l_sz, e);
+    l_C = zeros(local_size, local_size, e);
     % Local k matrix for each element
-    l_K = zeros(l_sz, l_sz, e);
+    l_K = zeros(local_size, local_size, e);
     
     
     for element = 1:e

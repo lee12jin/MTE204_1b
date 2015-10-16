@@ -40,11 +40,6 @@ v0 = 0;
 % Size of the global matrices
 size = dof * n;
 
-% Initializing global matrices
-M = zeros(size);
-C = zeros(size);
-K = zeros(size);
-
 % Create the local C and K matrices
 [l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );
 
