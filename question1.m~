@@ -29,16 +29,16 @@ c = [1];
 
 % Spring constant for each element (N/m)
 k = [10];
-
-% External force applied at each node (N)
-f = [0;
-     10;];
  
 % Initial conditions for Node 2
-u0 = 1; % displacement in m
-v0 = 0; % velocity in [m/s]
-a0 = 0; % acceleration [m/s^2]
-f0 = 10; % force [N]
+u0 = [0;
+      1;]; % displacement [m]
+v0 = [0;
+      0;]; % velocity [m/s]
+a0 = [0;
+      0;];% acceleration [m/s^2]
+f0 = [unknown;
+      10;]; % force [N]
 
 % Size of the global matrices
 size = dof * n;
@@ -67,7 +67,6 @@ beta = 8 / 5;
 
 % Apply implicit dynamic formulation
 [ A_t, B_t, C_t, D_t ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step1 );
-
 [u1, v1, a1] = apply_implicit_dynamic_formulation(A_t, B_t, C_t, D_t, u0, v0, a0, f0, beta, gamma, t, time_step1);
 [u2, v2, a2] = apply_implicit_dynamic_formulation(A_t, B_t, C_t, D_t, u0, v0, a0, f0, beta, gamma, t, time_step2);
 [u3, v3, a3] = apply_implicit_dynamic_formulation(A_t, B_t, C_t, D_t, u0, v0, a0, f0, beta, gamma, t, time_step3);
