@@ -1,16 +1,17 @@
-function [ m ] = find_node_mass( sctr, rho, A, L )
-% Calculates the mass of each node of a bar split into e equal elements
+function [ m ] = find_node_mass( sctr, rhos, areas, lengths )
+% Calculates the mass of each node given the properties of the elements
 % Returns a vector with the mass of each node
 
     % Number of elements of the bar
     e = size(sctr, 1);
-    % Mass of a single element
-    m_element = rho * A * (L/e);
     
     % Initialize a mass vector to 0
     m = zeros(e+1, 1);
     
     for i = 1:e
+        % Mass of the element: density * area * length
+        m_element = rhos(e, 1) * areas(e, 1) * lengths(e, 1);
+        
         node1 = sctr(i, 1);
         node2 = sctr(i, 2);
         

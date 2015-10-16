@@ -38,12 +38,18 @@ g = 9.81;
 c = damping * ones(e, 1);
 % Stiffness for each element
 k = (A * E) / (L / e) * ones(e, 1);
+% Density for each element
+rhos = rho * ones(e, 1);
+% Length of each element
+lengths = ( L / e ) * ones(e, 1);
+% Cross sectional area of each element
+areas = A * ones(e, 1);
 
 % Create the local C and K matrices
 [l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );
 
 % Calculate the mass for each node
-m = find_node_mass( sctr, rho, A, L );
+m = find_node_mass( sctr, rhos, areas, lengths );
 
 [M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
 
