@@ -45,20 +45,25 @@ size = dof * n;
 
 [M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
 
-% Part b
+% Total time (seconds)
+t = 5;
+
+% Time increments
 time_step1 = 0.01;
 time_step2 = 0.1;
 time_step3 = 1;
+
+% Create time vectors
+t1 = linspace(0, t, t/time_step1);
+t2 = linspace(0, t, t/time_step2);
+t3 = linspace(0, t, t/time_step3);
+
+% Part b
 gamma = 3 / 2;
 beta = 8 / 5;
 
 % Apply implicit dynamic formulation
 [ A_t, B_t, C_t, D_t ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step1 );
-
-% Create time vectors
-t1 = linspace(0, 5, 5/time_step1);
-t2 = linspace(0, 5, 5/time_step2);
-t3 = linspace(0, 5, 5/time_step3);
 
 % Place all the diagrams within one plot
 hold all;
