@@ -4,14 +4,11 @@ function [ sctr, coords, E, A, rho, c ] = read_input( )
     % Directory of the input files
     base_dir = 'ProjectIb_Student_Package';
 
-    sctr = csvread(sprintf('%s/sctr.txt', base_dir));
+    sctr = load(sprintf('%s/sctr.txt', base_dir));
 
-    coords = csvread(sprintf('%s/nodes.txt', base_dir));
-    % Removing the extra column created when reading file
-    coords = coords(:,1:2);
+    coords = load(sprintf('%s/nodes.txt', base_dir));
     
-    % Temporarily changed 1E2.00000 -> 1E2 to read input
-    props = csvread(sprintf('%s/props.txt', base_dir));
+    props = load(sprintf('%s/props.txt', base_dir));
     
     % Elastic modulus (MPa)
     E = props(:, 1);
