@@ -28,6 +28,10 @@ e = 10;
 n = e+1;
 % Total time (seconds)
 t = 5;
+% Time increments
+delta_t = [0.1;
+           0.001;
+           0.00001;];
 
 % Build the scatter and coordinate matrix
 [sctr, coords] = build_scatter(L, e);
