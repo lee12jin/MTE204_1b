@@ -28,8 +28,6 @@ e = 10;
 n = e+1;
 % Total time (seconds)
 t = 5;
-% Gravitational acceleration (m/s^2)
-g = 9.81;
 
 % Build the scatter and coordinate matrix
 [sctr, coords] = build_scatter(L, e);
