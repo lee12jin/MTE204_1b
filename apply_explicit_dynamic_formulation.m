@@ -37,10 +37,10 @@ function [ u, v, a, f ] = apply_explicit_dynamic_formulation( A_t, B_t, D_t, u0,
         
     end
     
-    u = u(:, 2:len);
-    v = v(:, 2:len);
-    a = a(:, 2:len);
-    f = f(:, 2:len);
+    u = u(:, 1:(len-1));
+    v = v(:, 1:(len-1));
+    a = a(:, 1:(len-1));
+    f = f(:, 1:(len-1));
 
 end
 
