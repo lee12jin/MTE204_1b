@@ -78,12 +78,15 @@ a0 = zeros(dof * n, 1); % acceleration [m/s^2]
 %             %.. 2 - 10 are 0
 %              10;]; % force [N]
 
+% Part a - explicit
+
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(1), n);
 
 % Part b - implicit
 gamma = 3 / 2;
 beta = 8 / 5;
 
-[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
+% [u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
 
 
 
