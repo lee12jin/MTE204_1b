@@ -32,6 +32,8 @@ t = 5;
 delta_t = [0.1;
            0.001;
            0.00001;];
+       
+t_1 = linspace(0, t, t/0.1 + 1);
 
 % Build the scatter and coordinate matrix
 [sctr, coords] = build_scatter(L, e);
@@ -80,13 +82,16 @@ a0 = zeros(dof * n, 1); % acceleration [m/s^2]
 
 % Part a - explicit
 
-[u_solved1, v_solved1, a_solved1, f_solved1] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(1), n);
-
+% [u_solved1, v_solved1, a_solved1, f_solved1] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(1), n);
+% [u_solved2, v_solved2, a_solved2, f_solved2] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(2), n);
+% [u_solved3, v_solved3, a_solved3, f_solved3] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(3), n);
 % Part b - implicit
+
 gamma = 3 / 2;
 beta = 8 / 5;
 
-% [u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
 
+plot(t_1, u_solved1(11,1:51));
 
 

@@ -3,24 +3,50 @@ function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_u
 %   Detailed explanation goes here
     
     syms f1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11
+    
+    u_unknown = [0;
+                 u2;
+                 u3;
+                 u4;
+                 u5;
+                 u6;
+                 u7;
+                 u8;
+                 u9;
+                 u10;
+                 u11;];
 
     [A_t, B_t, C_t, D_t] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step );
 
-    u = zeros(n, t / time_step);
-    v = zeros(n, t / time_step);
-    a = zeros(n, t / time_step);
-    f = zeros(n, t / time_step);
+    size = t / time_step + 1;
+    
+    u = zeros(n, size);
+    v = zeros(n, size);
+    a = zeros(n, size);
+    f = zeros(n, size);
     
     u(:, 1) = u0;
     v(:, 1) = v0;
     a(:, 1) = a0;
     f(:, 1) = zeros(n, 1);
     
-    for i = 1:((t / time_step) - 1)
+    for i = 1:(size - 1)
+        f_cur = [f1;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 i * time_step;];        
+        
         % Applied force
         f(n, i + 1) = i * time_step;
         
-        eqn = (A_t * u_unknown) == (f1 + B_t * u(:, i) + C_t * v(:, i) + D_t * a(:, i));
+        eqn = (A_t * u_unknown) == (f_cur + B_t * u(:, i) + C_t * v(:, i) + D_t * a(:, i));
         
         values = solve(eqn, f1, u2, u3, u4, u5, u6, u7, u8, u9, u10, u11);
         
