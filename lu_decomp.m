@@ -1,14 +1,10 @@
-function [ inverse ] = lu_decomp( A )
+function [ x ] = lu_decomp( A, x, b )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 n = length(A);
 L = zeros(n);
 U = zeros(n);
-x = zeros(n,1);
 d = zeros(n,1);
-b = zeros(n,1);
-id = eye(n);
-inverse = zeros(n);
 for i=1:n
     L(i,1) = A(i,1);
 end
@@ -31,28 +27,24 @@ L(n,n) = A(n,n) - sum;
 for i=1:n
     U(i,i) = 1;
 end
-for k=1:n
-    b = id(:, k);
-    d(1) = b(1)/L(1,1);
-    sum_knowns = 0;
-    for i=2:n
-        for j=1:(i-1)
-            sum_knowns = sum_knowns + d(j)*L(i,j);
-            d(i) = (b(i) - sum_knowns)/L(i,i);
-        end
-        sum_knowns = 0;
+d(1) = b(1)/L(1,1);
+sum_knowns = 0;
+for i=2:n
+    for j=1:(i-1)
+        sum_knowns = sum_knowns + d(j)*L(i,j);
+        d(i) = (b(i) - sum_knowns)/L(i,i);
     end
+    sum_knowns = 0;
+end
 
-    x(n) = d(n)/U(n,n);
-    sum_knowns = 0;
-    for i=n-1:-1:1
-        for j=n:-1:(i+1)
-            sum_knowns = sum_knowns + x(j)*U(i,j);
-            x(i) = (d(i) - sum_knowns)/U(i,i);
-        end
-        sum_knowns = 0;
+x(n) = d(n)/U(n,n);
+sum_knowns = 0;
+for i=n-1:-1:1
+    for j=n:-1:(i+1)
+        sum_knowns = sum_knowns + x(j)*U(i,j);
+        x(i) = (d(i) - sum_knowns)/U(i,i);
     end
-    inverse(:,k) = x;
+    sum_knowns = 0;
 end
 
 end
