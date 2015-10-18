@@ -28,22 +28,24 @@ e = 10;
 n = e+1;
 % Total time (seconds)
 t = 5;
-% Gravitational acceleration (m/s^2)
-g = 9.81;
+% Time increments
+delta_t = [0.1;
+           0.001;
+           0.00001;];
 
 % Build the scatter and coordinate matrix
 [sctr, coords] = build_scatter(L, e);
 
-% Internal damping for each element
-c = damping * ones(e, 1);
-% Stiffness for each element
-k = (A * E) / (L / e) * ones(e, 1);
 % Density for each element
 rhos = rho * ones(e, 1);
-% Length of each element
+% Initial length of each element
 lengths = ( L / e ) * ones(e, 1);
-% Cross sectional area of each element
+% Initial cross sectional area of each element
 areas = A * ones(e, 1);
+% Internal damping for each element
+c = damping * ones(e, 1);
+% Initial stiffness for each element
+k = calc_k( E, areas, lengths );
 
 % Create the local C and K matrices
 [l_C, l_K] = populate_element_props( sctr, coords, c, k, dof );

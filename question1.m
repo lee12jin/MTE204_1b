@@ -1,8 +1,7 @@
 clear all;
 clc;
 
-% Placeholder for variable
-unknown = 111111111;
+syms f_1 u_2
 
 % Scatter matrix
 sctr = [1, 2];
@@ -32,12 +31,14 @@ k = [10];
  
 % Initial conditions for Node 2
 u0 = [0;
-      1;]; % displacement [m]
+      0;]; % displacement [m]
+u1 = [0;
+      u_2;]; % displacement after first timestep
 v0 = [0;
       0;]; % velocity [m/s]
 a0 = [0;
       0;];% acceleration [m/s^2]
-f0 = [unknown;
+f1 = [f_1;
       10;]; % force [N]
 
 % Size of the global matrices
@@ -69,14 +70,14 @@ beta = 8 / 5;
 [ A_t1, B_t1, C_t1, D_t1 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step1 );
 [ A_t2, B_t2, C_t2, D_t2 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step2 );
 [ A_t3, B_t3, C_t3, D_t3 ] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step3 );
-[u1, v1, a1] = apply_implicit_dynamic_formulation(A_t1, B_t1, C_t1, D_t1, u0, v0, a0, f0, beta, gamma, t, time_step1, unknown);
-[u2, v2, a2] = apply_implicit_dynamic_formulation(A_t2, B_t2, C_t2, D_t2, u0, v0, a0, f0, beta, gamma, t, time_step2, unknown);
-[u3, v3, a3] = apply_implicit_dynamic_formulation(A_t3, B_t3, C_t3, D_t3, u0, v0, a0, f0, beta, gamma, t, time_step3, unknown);
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation(A_t1, B_t1, C_t1, D_t1, u0, u1, v0, a0, f1, beta, gamma, t, time_step1, n);
+[u_solved2, v_solved2, a_solved2, f_solved2] = apply_implicit_dynamic_formulation(A_t2, B_t2, C_t2, D_t2, u0, u1, v0, a0, f1, beta, gamma, t, time_step2, n);
+[u_solved3, v_solved3, a_solved3, f_solved3] = apply_implicit_dynamic_formulation(A_t3, B_t3, C_t3, D_t3, u0, u1, v0, a0, f1, beta, gamma, t, time_step3, n);
 
 % Place all the diagrams within one plot
-hold all;
+% hold all;
 % Plot each diagram based on time
 % plot(t1, u1);
 % plot(t2, u2);
 % plot(t3, u3);
-xlabel('Time (seconds)'); ylabel('Dunno asdflkjdsalfjl;');
+% xlabel('Time (seconds)'); ylabel('Dunno asdflkjdsalfjl;');
