@@ -15,8 +15,8 @@ function [ M, C, K ] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof )
         for i = 1:local_size
             for j =1:local_size                
                 % Global row and column 
-                g_row = sctr(element, (floor(i/3) + 1)) * 2 - mod(i,2);
-                g_column = sctr(element, (floor(j/3) + 1)) * 2 - mod(j,2);
+                g_row = sctr(element, (floor(i/(dof+1)) + 1)) * dof - mod(i,dof);
+                g_column = sctr(element, (floor(j/(dof+1)) + 1)) * dof - mod(j,dof);
                 
                 % Update the global C matrix
                 C(g_row, g_column) = C(g_row, g_column) + l_C(i, j, element);

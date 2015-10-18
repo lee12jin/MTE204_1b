@@ -6,7 +6,7 @@ clc;
 % Placeholder for variable
 unknown = 111111111;
 
-dof = 2;
+dof = 1;
 
 % === Material Properties ===
 % Length of the bar (m)
@@ -54,5 +54,36 @@ k = calc_k( E, areas, lengths );
 m = find_node_mass( n, sctr, rhos, areas, lengths );
 
 [M, C, K] = build_global_matrices( sctr, m, l_C, l_K, n, e, dof );
+
+% Initial conditions for Node 2
+u0 = zeros(dof * n, 1); % displacement [m]
+
+syms u_2 u_3 u_4 u_5 u_6 u_7 u_8 u_9 u_10 u_11
+u_unknown = [0;
+             u_2;
+             u_3;
+             u_4;
+             u_5;
+             u_6;
+             u_7;
+             u_8;
+             u_9;
+             u_10;
+             u_11;]; 
+         
+v0 = zeros(dof * n, 1); % velocity [m/s]
+a0 = zeros(dof * n, 1); % acceleration [m/s^2]
+
+% f_unknown = [f_1;
+%             %.. 2 - 10 are 0
+%              10;]; % force [N]
+
+
+% Part b - implicit
+gamma = 3 / 2;
+beta = 8 / 5;
+
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
+
 
 
