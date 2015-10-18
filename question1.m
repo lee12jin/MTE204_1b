@@ -84,9 +84,9 @@ t3 = linspace(0, t, t/time_step3);
 % [u_solved3, v_solved3, a_solved3, f_solved3] = apply_implicit_dynamic_formulation(A_t3, B_t3, C_t3, D_t3, u0, u1, v0, a0, f1, beta, gamma, t, time_step3, n);
 
 % Place all the diagrams within one plot
-% hold all;
+hold all;
 % Plot each diagram based on time
-% plot(t1, u1);
-% plot(t2, u2);
-% plot(t3, u3);
+plot(t1, u_solved1);
+plot(t2, u_solved2);
+plot(t3, u_solved3);
 % xlabel('Time (seconds)'); ylabel('Dunno asdflkjdsalfjl;');
