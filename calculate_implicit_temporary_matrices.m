@@ -5,7 +5,7 @@ function [ A_t, B_t, C_t, D_t ] = calculate_implicit_temporary_matrices( M, K, C
     A_t = (2 / (beta * time_step^2)) * M + K + (2 * gamma / (beta * time_step)) * C;
     B_t = (2 / (beta * time_step^2)) * M + (2 * gamma / (beta * time_step)) * C;
     C_t = (2 / (beta * time_step)) * M + (2 * gamma / beta - 1) * C;
-    D_t = ((1 - beta) / beta) * M + time_step * C * ((beta - 1) + (1 - beta) / beta * gamma);
+    D_t = ((1 - beta) / beta) * M + time_step * C * ((gamma - 1) + (1 - beta) / beta * gamma);
 
 end
 
