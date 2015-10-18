@@ -2,10 +2,6 @@ clear all;
 clc; 
 
 % Solves dynamic loading of a generic 1D dynamic bar
-
-% Placeholder for variable
-unknown = 111111111;
-
 dof = 1;
 
 % === Material Properties ===
@@ -82,15 +78,15 @@ a0 = zeros(dof * n, 1); % acceleration [m/s^2]
 
 % Part a - explicit
 
-% [u_solved1, v_solved1, a_solved1, f_solved1] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(1), n);
-% [u_solved2, v_solved2, a_solved2, f_solved2] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(2), n);
-% [u_solved3, v_solved3, a_solved3, f_solved3] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(3), n);
+% [u_solved1, v_solved1, a_solved1, f_solved1] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(1), n * dof);
+% [u_solved2, v_solved2, a_solved2, f_solved2] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(2), n * dof);
+% [u_solved3, v_solved3, a_solved3, f_solved3] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(3), n * dof);
 % Part b - implicit
 
 gamma = 3 / 2;
 beta = 8 / 5;
 
-[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n);
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n * dof);
 
 plot(t_1, u_solved1(11,1:51));
 

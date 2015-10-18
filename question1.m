@@ -87,7 +87,9 @@ beta = 8 / 5;
 % Place all the diagrams within one plot
 hold all;
 % Plot each diagram based on time
-plot(t1, u_solved1);
-plot(t2, u_solved2);
-plot(t3, u_solved3);
-% xlabel('Time (seconds)'); ylabel('Dunno asdflkjdsalfjl;');
+p1 = plot(t1, u_solved1(2, :), 'DisplayName', 'Time step = 0.01');
+p2 = plot(t2, u_solved2(2, :), 'DisplayName', 'Time step = 0.1');
+p3 = plot(t3, u_solved3(2, :), 'DisplayName', 'Time step = 1');
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 1: Results of Explicit Dynamic Formulation')

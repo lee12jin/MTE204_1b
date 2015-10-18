@@ -1,4 +1,4 @@
-function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, time_step, n )
+function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, time_step, size )
 %APPLY_IMPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -18,19 +18,21 @@ function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_u
 
     [A_t, B_t, C_t, D_t] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step );
 
-    size = t / time_step + 1;
+    len = t / time_step + 1;
     
-    u = zeros(n, size);
-    v = zeros(n, size);
-    a = zeros(n, size);
-    f = zeros(n, size);
+    u = zeros(size, len);
+    v = zeros(size, len);
+    a = zeros(size, len);
+    f = zeros(size, len);
     
     u(:, 1) = u0;
     v(:, 1) = v0;
     a(:, 1) = a0;
-    f(:, 1) = zeros(n, 1);
-    
-    for i = 1:(size - 1)
+    f(:, 1) = zeros(size , 1);
+       
+    for i = 1:(len-1)
+        
+        % Applied force
         f_cur = [f1;
                  0;
                  0;
@@ -41,10 +43,7 @@ function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_u
                  0;
                  0;
                  0;
-                 i * time_step;];        
-        
-        % Applied force
-        f(n, i + 1) = i * time_step;
+                 i * time_step;];
         
         eqn = (A_t * u_unknown) == (f_cur + B_t * u(:, i) + C_t * v(:, i) + D_t * a(:, i));
         

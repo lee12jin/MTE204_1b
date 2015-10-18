@@ -1,4 +1,4 @@
-function [ u, v, a, f ] = apply_explicit_dynamic_formulation_b( M, C, K, u0, v0, a0, t, time_step, n )
+function [ u, v, a, f ] = apply_explicit_dynamic_formulation_b( M, C, K, u0, v0, a0, t, time_step, size )
 %APPLY_IMPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -20,15 +20,15 @@ function [ u, v, a, f ] = apply_explicit_dynamic_formulation_b( M, C, K, u0, v0,
     
     len = t / time_step + 1;
 
-    u = zeros(n, len);
-    v = zeros(n, len);
-    a = zeros(n, len);
-    f = zeros(n, len);
+    u = zeros(size, len);
+    v = zeros(size, len);
+    a = zeros(size, len);
+    f = zeros(size, len);
     
     u(:, 1) = u0;
     v(:, 1) = v0;
     a(:, 1) = a0;
-    f(:, 1) = zeros(n, 1);
+    f(:, 1) = zeros(size, 1);
     
     for i = 1:len
         f_cur = [f1;
@@ -44,7 +44,7 @@ function [ u, v, a, f ] = apply_explicit_dynamic_formulation_b( M, C, K, u0, v0,
                  i * time_step;];
         
         % Applied force
-        f(n, i + 1) = i * time_step;
+        f(size, i + 1) = i * time_step;
         
         eqn = (A_t * u_unknown) == (f_cur + B_t * u(:, i) + D_t * u(:, max(1, i-1)));
                         
