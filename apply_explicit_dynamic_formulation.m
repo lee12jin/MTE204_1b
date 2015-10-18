@@ -1,4 +1,4 @@
-function [ u, v, a, f ] = apply_explicit_dynamic_formulation( A_t, B_t, D_t, u0, u_unknown, v0, a0, f_unknown, t, time_step, n )
+function [ u, v, a, f ] = apply_explicit_dynamic_formulation( A_t, B_t, D_t, u0, u_unknown, v0, a0, f_unknown, t, time_step, n, unknown )
 %APPLY_EXPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
     
@@ -17,11 +17,10 @@ function [ u, v, a, f ] = apply_explicit_dynamic_formulation( A_t, B_t, D_t, u0,
                10;];
     
     for i = 1:len              
-        u_2 = (f_unknown(2) - B_t(2, :) * u(:, i) - D_t(2, :) * u(:, max(1, i - 1))) / A_t(2, 2);
-        u(:, i + 1) = [0; u_2;];
-        f_1 = A_t(1, :) * u(:, i + 1) + B_t(1, :) * u(:, i) + D_t(1, :) * u(:, max(1, i - 1));
-        f(:, i + 1) = [f_1; 10;];
-               
+        constant =  - B_t * u(:, i) - D_t * u(:, max(1, i - 1));
+        [u_known, f_known] = solver(A_t, u_unknown, f_unknown + constant);
+        u(:, i + 1) = u_known;
+        f(:, i + 1) = f_known;
         % Calculate velocity
         v(:, i) = ( u(:, i + 1) - u(:, max(1, i - 1)) ) / (2 * time_step);
         % Calculate acceleration

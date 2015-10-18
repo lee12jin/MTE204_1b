@@ -1,9 +1,10 @@
-function [ x ] = lu_decomp( A, x, b )
+function [ x ] = lu_decomp( A, b )
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 n = length(A);
 L = zeros(n);
 U = zeros(n);
+x = zeros(n,1);
 d = zeros(n,1);
 for i=1:n
     L(i,1) = A(i,1);

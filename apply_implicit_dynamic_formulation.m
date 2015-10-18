@@ -1,4 +1,4 @@
-function [ u, v, a, f ] = apply_implicit_dynamic_formulation( A_t, B_t, C_t, D_t, u0, v0, a0, f_unknown, beta, gamma, t, time_step, n )
+function [ u, v, a, f ] = apply_implicit_dynamic_formulation( A_t, B_t, C_t, D_t, u0, u_unknown, v0, a0, f_unknown, beta, gamma, t, time_step, n )
 %APPLY_IMPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
     u = zeros(n, t / time_step + 1);
@@ -12,10 +12,10 @@ function [ u, v, a, f ] = apply_implicit_dynamic_formulation( A_t, B_t, C_t, D_t
     f(:, 1) = zeros(n, 1);
     
     for i = 1:(t / time_step)
-        u_2 = (f_unknown(2) + B_t(2, :) * u(:, i) + C_t(2, :) * v(:, i) + D_t(2, :) * a(:, i)) / A_t(2, 2);
-        u(:, i + 1) = [0; u_2;];
-        f_1 = A_t(1, :) * u(:, i + 1) - B_t(1, :) * u(:, i) - C_t(1, :) * v(:, i) - D_t(1, :) * a(:, i);
-        f(:, i + 1) = [f_1; 10;];
+        constant =  B_t * u(:, i) + C_t * v(:, i) + D_t * a(:, i);
+        [u_known, f_known] = solver(A_t, u_unknown, f_unknown + constant);
+        u(:, i + 1) = u_known;
+        f(:, i + 1) = f_known;
         a(:, i + 1) = (2 / (beta * time_step)) * ((u(:, i + 1) - u(:, i)) / time_step) - (2 / (beta * time_step)) * v(:, i) - ((1 - beta) / beta) * a(:, i);
         v(:, i + 1) = time_step * ((1 - gamma) * a(:, i) + gamma * a(:, i + 1)) + v(:, i);
     end
