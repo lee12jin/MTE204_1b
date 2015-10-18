@@ -1,6 +1,8 @@
 clear all;
 clc; 
 
+unknown = sqrt(-1);
+
 % Solves dynamic loading of a generic 1D dynamic bar
 dof = 1;
 
@@ -58,16 +60,16 @@ u0 = zeros(dof * n, 1); % displacement [m]
 
 syms u_2 u_3 u_4 u_5 u_6 u_7 u_8 u_9 u_10 u_11
 u_unknown = [0;
-             u_2;
-             u_3;
-             u_4;
-             u_5;
-             u_6;
-             u_7;
-             u_8;
-             u_9;
-             u_10;
-             u_11;]; 
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;
+             unknown;];          
          
 v0 = zeros(dof * n, 1); % velocity [m/s]
 a0 = zeros(dof * n, 1); % acceleration [m/s^2]
@@ -86,7 +88,7 @@ a0 = zeros(dof * n, 1); % acceleration [m/s^2]
 gamma = 3 / 2;
 beta = 8 / 5;
 
-[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation_b(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n * dof);
+[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n * dof);
 
 plot(t_1, u_solved1(11,1:51));
 

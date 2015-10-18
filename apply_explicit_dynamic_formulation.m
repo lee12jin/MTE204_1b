@@ -1,6 +1,8 @@
-function [ u, v, a, f ] = apply_explicit_dynamic_formulation( A_t, B_t, D_t, u0, u_unknown, v0, a0, f_unknown, t, time_step, n, unknown )
+function [ u, v, a, f ] = apply_explicit_dynamic_formulation( M, K, C, u0, u_unknown, v0, a0, f_unknown, t, time_step, n, unknown )
 %APPLY_EXPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
+    
+    [ A_t, B_t, D_t ] = calc_expl_temp_matrices( M, C, K, time_step );
     
     len = t / time_step + 1;
     
