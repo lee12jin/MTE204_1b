@@ -10,7 +10,7 @@ function [ m ] = find_node_mass( n, sctr, rhos, areas, lengths )
     
     for i = 1:e
         % Mass of the element: density * area * length
-        m_element = rhos(e, 1) * areas(e, 1) * lengths(e, 1);
+        m_element = rhos(i, 1) * areas(i, 1) * lengths(i, 1);
         
         node1 = sctr(i, 1);
         node2 = sctr(i, 2);
