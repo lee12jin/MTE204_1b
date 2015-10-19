@@ -1,4 +1,5 @@
 clear all;
+close all;
 clc;
 
 % Placeholder for variable
@@ -48,24 +49,18 @@ omega = [0.1;
 t = 500;
 
 % Time step (ms)
-time_step = 0.01;
+time_step = 0.1;
 
 len = round(t / time_step) + 1;
 
+% Create time vector
+t_space = linspace(0, t, len);
 
-% Create time vectors
-    t_space = linspace(0, t, len);
-
+for i = 1:3
     u = zeros(n * dof, len);
     v = zeros(n * dof, len);
     a = zeros(n * dof, len);
     f = zeros(n * dof, len);
-    
-    % Initial conditions
-%     u(:, 1) = zeros(n
-%     v(:, 1) = v0;
-%     a(:, 1) = a0;
-%     f(:, 1) = zeros(n * dof, 1); 
     
     u_unknown = [0;
                  unknown;
@@ -89,6 +84,55 @@ len = round(t / time_step) + 1;
                  unknown;
                  0;];
     
-    [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 3, dof, omega(3));    
+    [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 3, dof, omega(i));    
 
-    postprocesser(coords(:,1).', coords(:,2).', sctr.', u_expl(:, 501))
+    if i == 1
+        u1 = u_expl;
+        v1 = v_expl;
+        a1 = a_expl;
+    elseif i == 2
+        u2 = u_expl;
+        v2 = v_expl;
+        a2 = a_expl;
+    else
+        u3 = u_expl;
+        v3 = v_expl;
+        a3 = a_expl;
+    end
+end
+
+figure(1);
+hold all;
+p1 = plot(t_space, u1(4, :), 'DisplayName', 'Omega = 0.1');
+p2 = plot(t_space, u2(4, :), 'DisplayName', 'Omega = 1');
+p3 = plot(t_space, u3(4, :), 'DisplayName', 'Omega = 10');
+legend(gca, 'show');
+xlabel('Time (ms)'); ylabel('Displacement (mm)');
+title('Question 3: Nodal Displacement of Node 2');
+hold off;
+figure(2);
+hold all;
+p4 = plot(t_space, v1(4, :), 'DisplayName', 'Omega = 0.1');
+p5 = plot(t_space, v2(4, :), 'DisplayName', 'Omega = 1');
+p6 = plot(t_space, v3(4, :), 'DisplayName', 'Omega = 10');
+legend(gca, 'show');
+xlabel('Time (ms)'); ylabel('Velocity (mm/ms)');
+title('Question 3: Nodal Velocity of Node 2');
+hold off;
+figure(3);
+hold all;
+p7 = plot(t_space, a1(4, :), 'DisplayName', 'Omega = 0.1');
+p8 = plot(t_space, a2(4, :), 'DisplayName', 'Omega = 1');
+p9 = plot(t_space, a3(4, :), 'DisplayName', 'Omega = 10');
+hold off;
+legend(gca, 'show');
+xlabel('Time (ms)'); ylabel('Acceleration (mm/ms^2)');
+title('Question 3: Nodal Acceleration of Node 2');
+
+x = coords(:, 1).';
+y = coords(:, 2).';
+
+% postprocesser(x, y, sctr.', u3(:,5001).');
+% postprocesser(x, y, sctr.', u2(:,5001).');
+% postprocesser(x, y, sctr.', u3(:,5001).');
+
