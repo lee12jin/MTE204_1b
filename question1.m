@@ -79,8 +79,8 @@ for i = 1:3
     % Applied force
     f(2, :) = 10 * ones(1, t / time_step + 1);
     
-    [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n);
-    [u_impl, v_impl, a_impl, f_impl] = apply_implicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, beta, gamma, t, time_step);
+    [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 1);
+    [u_impl, v_impl, a_impl, f_impl] = apply_implicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, beta, gamma, t, time_step, n, 1);
 %     To store values on each iteration
     if i == 1
         u1_expl = u_expl;

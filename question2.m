@@ -24,14 +24,6 @@ A = 10^(-6);
 e = 10;
 % Number of nodes 
 n = e+1;
-% Total time (seconds)
-t = 5;
-% Time increments
-delta_t = [0.1;
-           0.001;
-           0.00001;];
-       
-t_1 = linspace(0, t, t/0.1 + 1);
 
 % Build the scatter and coordinate matrix
 [sctr, coords] = build_scatter(L, e);
@@ -58,7 +50,6 @@ m = find_node_mass( n, sctr, rhos, areas, lengths );
 % Initial conditions for Node 2
 u0 = zeros(dof * n, 1); % displacement [m]
 
-syms u_2 u_3 u_4 u_5 u_6 u_7 u_8 u_9 u_10 u_11
 u_unknown = [0;
              unknown;
              unknown;
@@ -69,7 +60,8 @@ u_unknown = [0;
              unknown;
              unknown;
              unknown;
-             unknown;];          
+             unknown;];   
+       
          
 v0 = zeros(dof * n, 1); % velocity [m/s]
 a0 = zeros(dof * n, 1); % acceleration [m/s^2]
@@ -85,11 +77,91 @@ a0 = zeros(dof * n, 1); % acceleration [m/s^2]
 % [u_solved3, v_solved3, a_solved3, f_solved3] = apply_explicit_dynamic_formulation_b(M, C, K, u0, v0, a0, t, delta_t(3), n * dof);
 % Part b - implicit
 
+
+
+
+% Total time (seconds)
+t = 5;
+
+% Time increments
+time_steps = [0.1;
+              0.001;
+              0.00001;];     
 gamma = 3 / 2;
-beta = 8 / 5;
+beta = 8 / 5;          
 
-[u_solved1, v_solved1, a_solved1, f_solved1] = apply_implicit_dynamic_formulation(M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, delta_t(1), n * dof);
+for i = 1:3
+    time_step = time_steps(i,1);
+    len = round(t / time_step ) + 1;
+    % Create time vectors
+    t_space = linspace(0, t, len);
 
-plot(t_1, u_solved1(11,1:51));
+    u = zeros(n, len);
+    v = zeros(n, len);
+    a = zeros(n, len);
+    f = zeros(n, len);
+    
+    % Initial conditions
+    u(:, 1) = u0;
+    v(:, 1) = v0;
+    a(:, 1) = a0;
+    f(:, 1) = zeros(n, 1); 
+    
+    f_unknown = [unknown;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;
+                 0;];
+    
+    [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 2);
+    [u_impl, v_impl, a_impl, f_impl] = apply_implicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, beta, gamma, t, time_step, n, 2);
+%     To store values on each iteration
+    if i == 1
+        u1_expl = u_expl;
+        u1_impl = u_impl;
+        t1 = t_space;
+    elseif i == 2
+        u2_expl = u_expl;
+        u2_impl = u_impl;
+        t2 = t_space;
+    else
+        u3_expl = u_expl;
+        u3_impl = u_impl;
+        t3 = t_space;
+    end
+        
+end
+
+% Part A
+hold all;
+
+figure(1);
+p1 = plot(t1, u1_expl(2, :), 'DisplayName', 'Time step = 0.1');
+p2 = plot(t2, u2_expl(2, :), 'DisplayName', 'Time step = 0.001');
+p3 = plot(t3, u3_expl(2, :), 'DisplayName', 'Time step = 0.00001');
+
+% Place all the diagrams within one plot
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Explicit Dynamic Formulation')
+
+% Part B
+hold off;
+figure(2);
+hold all;
+p4 = plot(t1, u1_impl(2, :), 'DisplayName', 'Time step = 0.1');
+p5 = plot(t2, u2_impl(2, :), 'DisplayName', 'Time step = 0.001');
+p6 = plot(t3, u3_impl(2, :), 'DisplayName', 'Time step = 0.00001');
+
+% Place all the diagrams within one plot
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Implicit Dynamic Formulation')
 
 

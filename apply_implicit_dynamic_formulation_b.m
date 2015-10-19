@@ -1,6 +1,20 @@
 function [ u, v, a, f ] = apply_implicit_dynamic_formulation_b( M, C, K, u0, u_unknown, v0, a0, beta, gamma, t, time_step, size )
 %APPLY_IMPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
+    
+    syms f1 u2 u3 u4 u5 u6 u7 u8 u9 u10 u11
+    
+    u_unknown = [0;
+                 u2;
+                 u3;
+                 u4;
+                 u5;
+                 u6;
+                 u7;
+                 u8;
+                 u9;
+                 u10;
+                 u11;];
 
     [A_t, B_t, C_t, D_t] = calculate_implicit_temporary_matrices( M, K, C, beta, gamma, time_step );
 

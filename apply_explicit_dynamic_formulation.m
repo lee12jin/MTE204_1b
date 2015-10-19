@@ -1,14 +1,17 @@
-function [ u, v, a, f ] = apply_explicit_dynamic_formulation( M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n )
+function [ u, v, a, f ] = apply_explicit_dynamic_formulation( M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, question )
 %APPLY_EXPLICIT_DYNAMIC_FORMULATION Summary of this function goes here
 %   Detailed explanation goes here
     
     [ A_t, B_t, D_t ] = calc_expl_temp_matrices( M, C, K, time_step );
     
-    len = t / time_step + 1;
+    len = round(t / time_step) + 1;
     
-    for i = 1:len              
-        constant =  - B_t * u(:, i) - D_t * u(:, max(1, i - 1));
-        [u_known, f_known] = solver(A_t, u_unknown, f_unknown + constant);
+    for i = 1:len
+        if question == 2
+            f_unknown(n, 1) = i * time_step;
+        end
+        constant = B_t * u(:, i) + D_t * u(:, max(1, i - 1));
+        [u_known, f_known] = solver(A_t, u_unknown, f_unknown - constant);
         u(:, i + 1) = u_known;
         f(:, i + 1) = f_known;
         % Calculate velocity
