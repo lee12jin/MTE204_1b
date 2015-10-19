@@ -54,9 +54,11 @@ size = dof * n;
 t = 5;
 
 % Time increments
-time_steps = [0.01;
+time_steps = [1;
               0.1;
-              1;];     
+              0.01;];     
+time_expl = zeros(3, 1);
+time_impl = zeros(3, 1);
 gamma = 3 / 2;
 beta = 8 / 5;          
 
@@ -79,9 +81,13 @@ for i = 1:3
     % Applied force
     f(2, :) = 10 * ones(1, t / time_step + 1);
     
+    temp1 = tic;
     [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 1);
+    time_expl(i) = toc(temp1);
+    temp2 = tic;
     [u_impl, v_impl, a_impl, f_impl] = apply_implicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, beta, gamma, t, time_step, n, 1);
-%     To store values on each iteration
+    time_impl(i) = toc(temp2);
+    %     To store values on each iteration
     if i == 1
         u1_expl = u_expl;
         u1_impl = u_impl;
@@ -105,9 +111,9 @@ end
 hold all;
 
 figure(1);
-p1 = plot(t1, u1_expl(2, :), 'DisplayName', 'Time step = 0.01');
+p1 = plot(t1, u1_expl(2, :), 'DisplayName', 'Time step = 1');
 p2 = plot(t2, u2_expl(2, :), 'DisplayName', 'Time step = 0.1');
-p3 = plot(t3, u3_expl(2, :), 'DisplayName', 'Time step = 1');
+p3 = plot(t3, u3_expl(2, :), 'DisplayName', 'Time step = 0.01');
 
 % Place all the diagrams within one plot
 legend(gca, 'show');
@@ -118,9 +124,9 @@ title('Question 1: Results of Explicit Dynamic Formulation')
 hold off;
 figure(2);
 hold all;
-p4 = plot(t1, u1_impl(2, :), 'DisplayName', 'Time step = 0.01');
+p4 = plot(t1, u1_impl(2, :), 'DisplayName', 'Time step = 1');
 p5 = plot(t2, u2_impl(2, :), 'DisplayName', 'Time step = 0.1');
-p6 = plot(t3, u3_impl(2, :), 'DisplayName', 'Time step = 1');
+p6 = plot(t3, u3_impl(2, :), 'DisplayName', 'Time step = 0.01');
 
 % Place all the diagrams within one plot
 legend(gca, 'show');

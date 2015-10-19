@@ -86,7 +86,9 @@ t = 5;
 % Time increments
 time_steps = [0.1;
               0.001;
-              0.00001;];     
+              0.00001;];
+time_expl = zeros(3, 1);
+time_impl = zeros(3, 1);
 gamma = 3 / 2;
 beta = 8 / 5;          
 
@@ -118,9 +120,12 @@ for i = 1:3
                  0;
                  0;
                  0;];
-    
+    tic
     [u_expl, v_expl, a_expl, f_expl] = apply_explicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, t, time_step, n, 2);
+    time_expl(i) = toc;
+    tic
     [u_impl, v_impl, a_impl, f_impl] = apply_implicit_dynamic_formulation(M, K, C, u, v, a, f, u_unknown, f_unknown, beta, gamma, t, time_step, n, 2);
+    time_impl(i) = toc;
 %     To store values on each iteration
     if i == 1
         u1_expl = u_expl;
@@ -139,29 +144,41 @@ for i = 1:3
 end
 
 % Part A
-hold all;
 
 figure(1);
 p1 = plot(t1, u1_expl(2, :), 'DisplayName', 'Time step = 0.1');
-p2 = plot(t2, u2_expl(2, :), 'DisplayName', 'Time step = 0.001');
-p3 = plot(t3, u3_expl(2, :), 'DisplayName', 'Time step = 0.00001');
-
-% Place all the diagrams within one plot
 legend(gca, 'show');
 xlabel('Time (seconds)'); ylabel('Displacement (meters)');
-title('Question 2: Results of Explicit Dynamic Formulation')
+title('Question 2: Results of Explicit Dynamic Formulation');
+
+figure(2);
+p2 = plot(t2, u2_expl(2, :), 'DisplayName', 'Time step = 0.001');
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Explicit Dynamic Formulation');
+
+figure(3);
+p3 = plot(t3, u3_expl(2, :), 'DisplayName', 'Time step = 0.00001');
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Explicit Dynamic Formulation');
 
 % Part B
-hold off;
-figure(2);
-hold all;
+figure(4);
 p4 = plot(t1, u1_impl(2, :), 'DisplayName', 'Time step = 0.1');
-p5 = plot(t2, u2_impl(2, :), 'DisplayName', 'Time step = 0.001');
-p6 = plot(t3, u3_impl(2, :), 'DisplayName', 'Time step = 0.00001');
-
-% Place all the diagrams within one plot
 legend(gca, 'show');
 xlabel('Time (seconds)'); ylabel('Displacement (meters)');
-title('Question 2: Results of Implicit Dynamic Formulation')
+title('Question 2: Results of Implicit Dynamic Formulation');
 
+figure(5);
+p5 = plot(t2, u2_impl(2, :), 'DisplayName', 'Time step = 0.001');
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Implicit Dynamic Formulation');
+
+figure(6);
+p6 = plot(t3, u3_impl(2, :), 'DisplayName', 'Time step = 0.00001');
+legend(gca, 'show');
+xlabel('Time (seconds)'); ylabel('Displacement (meters)');
+title('Question 2: Results of Implicit Dynamic Formulation');
 
